@@ -1,5 +1,5 @@
 import React from "react";
-import {StyleSheet, TextInput, View} from "react-native";
+import {Button, StyleSheet, TextInput, View} from "react-native";
 import FormRow from '../components/FormRow'
 export default class LoginPage extends React.Component{
     constructor(props) {
@@ -10,6 +10,14 @@ export default class LoginPage extends React.Component{
             password:'',
         }
     }
+    onChangeHandler(field, value) {
+        this.setState({
+            [field]:value
+            })
+    }
+    tryLogin(){
+        console.log(this.state)
+    }
 
 render() {
     return(
@@ -18,6 +26,8 @@ render() {
                 <TextInput
                     placeholder="user@email.com"
                     style={styles.input}
+                    value={this.state.email}
+                    onChangeText={value => this.onChangeHandler('email', value)}
                 />
             </FormRow>
             <FormRow>
@@ -25,8 +35,14 @@ render() {
                     placeholder="********"
                     style={styles.input}
                     secureTextEntry={true}
+                    value={this.state.password}
+                    onChangeText={value=> this.onChangeHandler('password',value)}
                 />
             </FormRow>
+            <Button
+                title='Entrar'
+                onPress={()=> this.tryLogin()}
+            />
         </View>
     )
 }
