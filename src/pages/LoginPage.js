@@ -1,9 +1,13 @@
 import React from "react";
-import {ActivityIndicator, Alert, Button, StyleSheet, Text, TextInput, View} from "react-native";
+import {ActivityIndicator, Button, StyleSheet, Text, TextInput, View} from "react-native";
 import FormRow from '../components/FormRow'
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import firebase from "firebase/compat";
+
+import {connect} from "react-redux";
+import {tryLogin} from "../redux/actions";
+
 export default class LoginPage extends React.Component{
     constructor(props) {
         super(props);
@@ -45,45 +49,7 @@ export default class LoginPage extends React.Component{
         console.log(this.state)
         const {email, password, message} = this.state
 
-        firebase.auth()
-            .signInWithEmailAndPassword(email, password)
-            .then((user)=>{
-                this.setState({message:'Sucesso'})
-                console.log('Usuario autenticado!',user)
-            })
-            .catch(error=> {
-                if (error.code === 'auth/user-not-found'){
-                    Alert.alert('Usuario não encontrado',
-                        'Gostaria de fazer um cadastro com as informações inseridas?',
-                        [
-                            {
-                                text:'não',
-                                style:'cancel'
-                            },
-                            {
-                                text:'sim',
-                                onPress:()=>{
-                                    firebase
-                                        .auth()
-                                        .createUserWithEmailAndPassword(email,password)
-                                        .then(user => {
-                                            this.setState({message: 'Sucesso'})
-                                            console.log('Usuario criado!', user)
-                                        })
-                                        .catch(error=>{
-                                            console.log('usuario não cadastrado',error)
-                                            this.setState({message: this.getMessageErrorCode(error.code)})
-                                        })
-                                }
-                            }
-                        ],
-                        {cancelable: false}
-                        )
-                }
-                console.log('usuario não autenticado',error)
-                this.setState({message: this.getMessageErrorCode(error.code)})
-            })
-        this.setState({isLoading:false})
+
     }
 
     getMessageErrorCode(errorCode){
