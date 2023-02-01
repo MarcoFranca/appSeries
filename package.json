@@ -19,10 +19,16 @@
     "react-native-safe-area-context": "^4.4.1",
     "react-native-screens": "^3.18.2",
     "react-navigation": "^4.4.4",
-    "react-navigation-stack": "^2.10.4"
+    "react-navigation-stack": "^2.10.4",
+    "react-redux": "^8.0.5",
+    "redux": "^4.2.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.9"
+    "@babel/core": "^7.12.9",
+    "redux-devtools-extension": "^2.13.9"
+  },
+  "resolutions": {
+    "react-devtools-core": "~4.25.0"
   },
   "private": true
 }
