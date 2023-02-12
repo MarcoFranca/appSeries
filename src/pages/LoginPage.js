@@ -8,7 +8,7 @@ import firebase from "firebase/compat";
 import {connect} from "react-redux";
 import {tryLogin} from "../redux/actions";
 
-export default class LoginPage extends React.Component{
+class LoginPage extends React.Component{
     constructor(props) {
         super(props);
 
@@ -46,8 +46,8 @@ export default class LoginPage extends React.Component{
     }
     tryLogin(){
         this.setState({isLoading:true})
-        console.log(this.state)
-        const {email, password, message} = this.state
+        const {email, password} = this.state;
+        this.props.tryLogin(email,password)
 
 
     }
@@ -122,3 +122,4 @@ const styles = StyleSheet.create({
 
     }
 })
+export default connect(null, {tryLogin})(LoginPage)

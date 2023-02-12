@@ -11,7 +11,7 @@ const userLogout = ()=>({
     type: USER_LOGOUT,
 })
 
-export const tryLogin = () =>{
+export const tryLogin = ({email,password}) =>{
     firebase
         .auth()
         .signInWithEmailAndPassword(email, password)
