@@ -1,14 +1,12 @@
 import React from "react";
 import {ActivityIndicator, Button, StyleSheet, Text, TextInput, View} from "react-native";
 import FormRow from '../components/FormRow'
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
 import firebase from "firebase/compat";
 
 import {connect} from "react-redux";
 import {tryLogin} from "../redux/actions";
 
-export default class LoginPage extends React.Component{
+class LoginPage extends React.Component{
     constructor(props) {
         super(props);
 
@@ -33,9 +31,7 @@ export default class LoginPage extends React.Component{
 
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
-        const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
-
+        // const app = initializeApp(firebaseConfig);
     }
 
 
@@ -44,11 +40,14 @@ export default class LoginPage extends React.Component{
             [field]:value
         })
     }
-    tryLogin(){
-        this.setState({isLoading:true})
-        console.log(this.state)
-        const {email, password, message} = this.state
+    tryLogin (){
+        this.setState({isLoading:true, message: ''})
+        const {email, password} = this.state;
 
+           return this.props.tryLogin({email, password}).then(() => {
+               this.setState({message: 'Sucesso!'})
+               this.props.navigation.navigate('Main')
+           })
 
     }
 
@@ -122,3 +121,4 @@ const styles = StyleSheet.create({
 
     }
 })
+export default connect(null, {tryLogin})(LoginPage)
