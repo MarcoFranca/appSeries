@@ -44,10 +44,12 @@ class LoginPage extends React.Component{
         this.setState({isLoading:true, message: ''})
         const {email, password} = this.state;
 
-           return this.props.tryLogin({email, password}).then(() => {
-               this.setState({message: 'Sucesso!'})
-               this.props.navigation.navigate('Main')
-           })
+        this.props.tryLogin({email, password}).then(() => {
+            this.setState({message: 'Sucesso!'})
+            this.props.navigation.navigate('Main')
+        }).catch(error =>{
+            console.log("caiu no catch", error.code)
+        })
 
     }
 
