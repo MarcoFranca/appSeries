@@ -48,7 +48,7 @@ class LoginPage extends React.Component{
             this.setState({message: 'Sucesso!'})
             this.props.navigation.navigate('Main')
         }).catch(error =>{
-            console.log("caiu no catch", error.code)
+            this.setState({isLoading:false, message: this.getMessageErrorCode(error.code)})
         })
 
     }
