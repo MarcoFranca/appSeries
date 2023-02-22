@@ -92,6 +92,8 @@ class LoginPage extends React.Component{
                         style={styles.input}
                         value={this.state.email}
                         onChangeText={value => this.onChangeHandler('email', value)}
+                        keyboardType="email-address"
+                        autoCapitalize="none"
                     />
                 </FormRow>
                 <FormRow last>
