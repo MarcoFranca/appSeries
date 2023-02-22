@@ -24,6 +24,7 @@ export const tryLogin = ({email,password}) => (dispatch) => {
         .then(user =>{
             const action = userLoginSuccess(user.user)
             dispatch(action)
+            return user
         })
         .catch(error=> {
             if (error.code === 'auth/user-not-found'){
